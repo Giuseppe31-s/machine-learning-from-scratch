@@ -49,7 +49,7 @@ class DecisionTreeClassifier:
         best_feature, best_thresh = self._best_split(X, y, feat_idxs)
 
         # create child nodes
-        left_idxs, right_idxs = self._split(X[:, best_feature], best_thresh)
+        left_idxs, right_idxs = self._split_data(X[:, best_feature], best_thresh)
         left = self.build_tree(X[left_idxs, :], y[left_idxs], depth + 1)
         right = self.build_tree(X[right_idxs, :], y[right_idxs], depth + 1)
         return Node(best_feature, best_thresh, left, right)
@@ -87,7 +87,7 @@ class DecisionTreeClassifier:
 
         n_total = len(y)
 
-        for idxs in [self._split_data(x, threshold)]:
+        for idxs in self._split_data(x, threshold):
             n_subset = len(idxs)
 
             if n_subset == 0:
