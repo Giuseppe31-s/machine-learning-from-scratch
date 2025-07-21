@@ -80,7 +80,7 @@ class DecisionTreeClassifier:
 
     def _entropy(self, y: np.ndarray):
         probabilitis = np.bincount(y) / len(y)
-        return sum([p * np.log2(p) for p in probabilitis if p > 0])
+        return -sum([p * np.log2(p) for p in probabilitis if p > 0])
 
     def _information_gain(self, x: np.ndarray, y: np.ndarray, threshold: float | int):
         information_gain = self._entropy(y)
